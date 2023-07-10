@@ -9,48 +9,70 @@ router.get("/add", (req, res) => {
 });
 
 router.post("/add", (req, res) => {
-  const restaurant = req.body;
-  return Restaurant.create(restaurant)
+  const userId = req.user._id;
+  const {
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+  } = req.body;
+  return Restaurant.create({
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+    userId,
+  })
     .then(() => res.redirect("/"))
     .catch(error => console.log(error));
 });
 
 //update restaurant
-router.get("/:restaurantId/edit", (req, res) => {
-  const restaurantId = req.params.restaurantId;
-  return Restaurant.findById(restaurantId)
+router.get("/:id/edit", (req, res) => {
+  const userId = req.user._id;
+  const _id = req.params.id;
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render("edit", { restaurant }))
     .catch(error => console.log(error));
 });
 
-router.put("/:restaurantId/edit", (req, res) => {
-  const restaurantId = req.params.restaurantId;
-  const restaurantNew = req.body;
-  return Restaurant.findByIdAndUpdate(restaurantId, restaurantNew)
-    .then(() => res.redirect(`/restaurants/${restaurantId}`))
+router.put("/:id/edit", (req, res) => {
+  const userId = req.user._id;
+  const _id = req.params.id;
+  const newRestaurant = req.body;
+
+  return Restaurant.findOneAndUpdate({ _id, userId }, newRestaurant)
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(error => console.log(error));
 });
 
 //show restaurant
-router.get("/:restaurantId", (req, res) => {
-  const restaurantId = req.params.restaurantId;
-  Restaurant.find()
-    .lean()
-    .then(restaurants => {
-      const restaurant = restaurants.find(
-        restaurant => restaurant._id.toString() === restaurantId
-      );
+router.get("/:id", (req, res) => {
+  const userId = req.user._id;
+  const _id = req.params.id;
 
-      res.render("show", { restaurant });
-    })
-    .catch(error => console.log(error));
+  return Restaurant.findOne({ _id, userId })
+    .lean()
+    .then(restaurant => res.render("show", { restaurant }))
+    .catch(err => console.log(err));
 });
 
 //delete restaurant
 router.delete("/:id/delete", (req, res) => {
-  const id = req.params.id;
-  return Restaurant.findById(id)
+  const userId = req.user._id;
+  const _id = req.params.id;
+  return Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect("/"))
     .catch(error => console.log(error));
