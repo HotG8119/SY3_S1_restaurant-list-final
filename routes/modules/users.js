@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
 const User = require("../../models/user");
 
@@ -12,6 +13,7 @@ router.get("/login", (req, res) => {
   res.render("login", { email: userInput.email, password: userInput.password });
 });
 
+// 使用 passport 認證時，可使用 middleware 的方式將 req, res, next 將 email, password 用 req.session 傳入 /login路由
 router.post(
   "/login",
   (req, res, next) => {
@@ -54,11 +56,18 @@ router.post("/register", (req, res) => {
       });
     }
 
-    return User.create({
-      name,
-      email,
-      password,
-    })
+    return bcrypt
+      .genSalt(10)
+      .then(salt => {
+        bcrypt.hash(password, salt);
+      })
+      .then(hash => {
+        User.create({
+          name,
+          email,
+          password: hash,
+        });
+      })
       .then(() => res.redirect("/"))
       .catch(err => console.log(err));
   });

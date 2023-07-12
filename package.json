@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/HotG8119/SY2-3_S2_A1-restaurant-list#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "express": "^4.17.2",
     "express-handlebars": "^4.0.3",
