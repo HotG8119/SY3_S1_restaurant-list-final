@@ -58,21 +58,12 @@ router.post("/register", (req, res) => {
 
     return bcrypt
       .genSalt(10)
-      .then(salt => {
-        bcrypt.hash(password, salt);
-      })
-      .then(hash => {
-        User.create({
-          name,
-          email,
-          password: hash,
-        });
-      })
+      .then(salt => bcrypt.hash(password, salt))
+      .then(hash => User.create({ name, email, password: hash }))
       .then(() => res.redirect("/"))
       .catch(err => console.log(err));
   });
 });
-
 router.get("/logout", (req, res) => {
   req.logout();
   req.flash("success_msg", "你已經成功登出。");
