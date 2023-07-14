@@ -65,19 +65,3 @@ http://localhost:3000
 ```bash
 ctrl + c
 ```
-
-## 開發工具
-
-- bcryptjs 2.4.3
-- Bootstrap 5.3.0
-- connect-flash 0.1.1
-- dotenv 16.0.3
-- express 4.17.1
-- express-handlebars 5.3.4
-- express-session 1.17.2
-- Font-Awesome 6.3.0
-- method-override 3.0.0
-- mongoose 5.13.7
-- passport 0.5.0
-- passport-facebook 3.0.0
-- passport-local 1.0.0
