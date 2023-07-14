@@ -1,16 +1,13 @@
-## 專案畫面
-
-![首頁](./public/image/home.jpeg)
-![資訊](./public/image/show.jpeg)
-![搜尋成功](./public/image/searchTure.jpeg)
-![搜尋失敗](./public/image/searchFalse.jpeg)
-
 ## 專案介紹
 
-使用 Express 打造的餐廳美食網站，可以瀏覽餐廳、查看詳細資訊、甚至連結到地圖。
+使用 Express 打造的餐廳美食網站，可以建立帳戶，新增自己的餐廳，可以瀏覽餐廳、查看詳細資訊、甚至連結到地圖。
 
 ### 功能
 
+- 註冊帳號
+- 登入/登出
+- 使用 Facebook 帳號登入
+- 瀏覽全部餐廳
 - 新增餐廳
 - 瀏覽餐廳的詳細資訊
 - 編輯餐廳資訊
@@ -30,10 +27,12 @@
 npm install
 ```
 
-4. 新增 .env 檔案，並輸入 MongoDB 連線字串
+4. 新增 .env 檔案，並輸入 MongoDB 連線字串，及 Facebook 登入資訊
 
 ```bash
 MONGODB_URI = "<你的連線字串>"
+FACEBOOK_ID = "<FB應用程式編號>"
+FACEBOOK_SECRET = "<FB應用程式密鑰>"
 ```
 
 5. 在終端機輸入以下字串，製作種子資料
@@ -69,12 +68,16 @@ ctrl + c
 
 ## 開發工具
 
+- bcryptjs 2.4.3
 - Bootstrap 5.3.0
+- connect-flash 0.1.1
 - dotenv 16.0.3
-- mongoose 5.13.17
-- method-override 3.0.0
-- Node.js 14.16.0
-- Nodemon 2.0.22
-- Express.js 4.18.2
-- Express-Handlebars 3.0.0
+- express 4.17.1
+- express-handlebars 5.3.4
+- express-session 1.17.2
 - Font-Awesome 6.3.0
+- method-override 3.0.0
+- mongoose 5.13.7
+- passport 0.5.0
+- passport-facebook 3.0.0
+- passport-local 1.0.0
