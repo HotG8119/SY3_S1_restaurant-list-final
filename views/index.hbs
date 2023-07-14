@@ -38,16 +38,11 @@
 
 
 <!-- restaurant list -->
-{{#if error}}
-<div class="container mt-5">
-  <div class="alert alert-primaryd-none" role="alert">
-    查無餐廳,請重新搜尋
-  </div>
-</div>
-{{/if}}
+
 
 
 <div class="row">
+  {{> message}}
   <div class="col-md-10 col-12 mx-auto ">
     <a href="/restaurants/add" class="btn btn-outline-success mb-1">Add restaurant</a>
     <div class="row row-cols-sm-3">

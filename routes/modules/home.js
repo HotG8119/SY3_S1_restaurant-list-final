@@ -36,6 +36,10 @@ router.get("/search", (req, res) => {
           restaurant.category.includes(keyword)
         );
       });
+      if (filterRestaurant.length === 0) {
+        req.flash("warning_msg", "找不到符合的餐廳。");
+        return res.render("index", { restaurants, keyword });
+      }
       res.render("index", { restaurants: filterRestaurant, keyword });
     })
     .catch(error => console.log(error));
