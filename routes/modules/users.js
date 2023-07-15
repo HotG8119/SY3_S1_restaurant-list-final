@@ -44,6 +44,17 @@ router.post("/register", (req, res) => {
     errors.push({ message: "密碼與確認密碼不相符。" });
   }
 
+  //如果有錯誤，回到註冊頁面
+  if (errors.length) {
+    return res.render("register", {
+      errors,
+      name,
+      email,
+      password,
+      confirmPassword,
+    });
+  }
+
   User.findOne({ email }).then(user => {
     if (user) {
       errors.push({ message: "這個 Email 已經註冊過了。" });
